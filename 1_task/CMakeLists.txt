@@ -18,7 +18,7 @@ set_target_properties( helloworld libhelloworld test_version PROPERTIES
 
 set_target_properties(test_version PROPERTIES
     COMPILE_DEFINITIONS BOOST_TEST_DYN_LINK
-    INCLUDE_DIRECTORIES ${BOOST_INCLUDEDIR}
+    INCLUDE_DIRECTORIES ${Boost_INCLUDE_DIR}
 )
 
 target_link_libraries( helloworld
