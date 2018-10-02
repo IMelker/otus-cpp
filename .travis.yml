@@ -10,6 +10,12 @@ script:
 - cd ./build
 - cmake ../
 - cmake --build . --target all
+- ls -a
+- rm -rf *
+- cmake --build .
+- cmake --build . --target test
+- cmake --build . --target package
+- ls -a
 deploy:
   provider: script
   skip_cleanup: true
