@@ -4,7 +4,7 @@ project(helloworld VERSION 0.0.$ENV{TRAVIS_BUILD_NUMBER})
 
 find_package(Boost COMPONENTS unit_test_framework REQUIRED)
 
-configure_file(version.h.in "../version.h" @ONLY)
+configure_file(version.h.in "version.h" @ONLY)
 
 add_executable(helloworld main.cpp)
 add_library(libhelloworld lib.cpp)
