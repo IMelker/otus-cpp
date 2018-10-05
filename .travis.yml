@@ -5,7 +5,8 @@ before_script:
 - echo "deb http://archive.ubuntu.com/ubuntu xenial main universe" | sudo tee -a /etc/apt/sources.list.d/xenial.list
 - sudo apt update
 script:
-- cmake ./1_task
+- cd ./1_task
+- cmake .
 - cmake --build .
 - cmake --build . --target test
 - cmake --build . --target package
