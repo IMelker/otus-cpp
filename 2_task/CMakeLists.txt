@@ -32,4 +32,4 @@ include(CPack)
 
 enable_testing()
 
-add_test(test_ip_filter test_ip_filter)
+add_test(test_ip_filter_valid test_ip_filter)
