@@ -1,5 +1,3 @@
-//#include <cassert>
-//#include <cstdlib>
 #include <iostream>
 #include <string>
 #include <set>
@@ -47,9 +45,9 @@ struct IpFilter
 
 static const auto _____ = []()
 {
-	std::ios::sync_with_stdio(false);
-	std::cin.tie(nullptr);
-	return nullptr;
+    std::ios::sync_with_stdio(false);
+    std::cin.tie(nullptr);
+    return nullptr;
 }();
 
 auto DotNotationToUInt (const char * ip) {
@@ -117,10 +115,10 @@ void PrintIpPool(const uimset_g& pool, IpFilter&& filter)
 
 auto operator"" _any(unsigned long long n) {
     return std::make_pair(n, IpFilter::Type::OR);
-};
+}
 auto operator"" _noone(unsigned long long n) {
     return std::make_pair(n, IpFilter::Type::XOR);
-};
+}
 
 int main(int argc, char const *argv[])
 {
