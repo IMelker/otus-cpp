@@ -1,55 +1,67 @@
 #ifndef __IP_FILTER_H__
 #define __IP_FILTER_H__
 
+#define IP4_OCTET_COUNT 4
+#define as_uint8(X) static_cast<uint8_t>(X)
+
 #include <algorithm>
 #include <iostream>
 #include <string>
 #include <vector>
 
-typedef std::vector<int> vi;
-typedef std::vector<std::vector<int>> vvi;
+typedef std::vector<uint8_t> vi;
+typedef std::vector<std::vector<uint8_t>> vvi;
 
 struct IpFilter
 {
-    enum class Type: int { Simple, OR, XOR, NotValid };
-    IpFilter() : n1(-1), n2(-1), n3(-1), n4(-1), type(Type::NotValid) {};
-    IpFilter(int n1_=-1, int n2_=-1, int n3_=-1, int n4_=-1) :
-        n1(n1_), n2(n2_), n3(n3_), n4(n4_), type(Type::Simple) {};
-    explicit IpFilter(std::pair<int, IpFilter::Type>&& typed_filter) :
-        n1(typed_filter.first), n2(typed_filter.first), n3(typed_filter.first),
-        n4(typed_filter.first), type(typed_filter.second) {};
+    enum class Type: int { Simple, OR, XOR, ALL, NotValid };
+    IpFilter() : type(Type::NotValid) {};
+    IpFilter(int n1 = -1, int n2 = -1, int n3 = -1, int n4 = -1)
+      : type(Type::Simple),
+      data({{std::make_pair(as_uint8(n1), n1 != -1)},
+            {std::make_pair(as_uint8(n2), n2 != -1)},
+            {std::make_pair(as_uint8(n3), n3 != -1)},
+            {std::make_pair(as_uint8(n4), n4 != -1)} }) {};
+
+    explicit IpFilter(std::pair<uint8_t, IpFilter::Type>&& typed_filter) :
+        type(typed_filter.second), data({ {typed_filter.first, true} }) {};
+
     bool IpFits(const vi& ip)
     {
         switch(type) {
         case Type::Simple:
-            return (n1 == -1 || n1 == ip.at(0)) &&
-                   (n2 == -1 || n2 == ip.at(1)) &&
-                   (n3 == -1 || n3 == ip.at(2)) &&
-                   (n4 == -1 || n4 == ip.at(3));
+        {
+            for (int i = 0; i < IP4_OCTET_COUNT; ++i) {
+                if (data.at(i).second && data.at(i).first != ip.at(i)) {
+                    return false;
+                }
+            }
+            return true;
+        }
         case Type::OR:
-            return (n1 == ip.at(0)) || (n2 == ip.at(1)) ||
-                   (n3 == ip.at(2)) || (n4 == ip.at(3));
+            return std::any_of(ip.begin(), ip.end(), data.front().first);
         case Type::XOR:
-            return (n1 != ip.at(0)) && (n2 != ip.at(1)) &&
-                   (n3 != ip.at(2)) && (n4 != ip.at(3));
+            return std::none_of(ip.begin(), ip.end(), data.front().first);
+        case Type::ALL:
+            return std::all_of(ip.begin(), ip.end(), data.front().first);
         case Type::NotValid:
             break;
         }
         return false;
     }
 
-    int n1;
-    int n2;
-    int n3;
-    int n4;
     Type type;
+    std::vector< std::pair<uint8_t, bool> > data;
 };
 
 auto operator"" _any(unsigned long long n) {
-    return std::make_pair(n, IpFilter::Type::OR);
+    return std::make_pair(as_uint8(n), IpFilter::Type::OR);
 }
 auto operator"" _noone(unsigned long long n) {
-    return std::make_pair(n, IpFilter::Type::XOR);
+    return std::make_pair(as_uint8(n), IpFilter::Type::XOR);
+}
+auto operator"" _all(unsigned long long n) {
+    return std::make_pair(as_uint8(n), IpFilter::Type::ALL);
 }
 
 auto SplitForIntParts(const std::string&& ip){
@@ -59,15 +71,14 @@ auto SplitForIntParts(const std::string&& ip){
     auto stop = ip.find_first_of('.');
     while(stop != std::string::npos)
     {
-        parts.push_back(stoi(ip.substr(start, stop - start)));
+        parts.push_back( as_uint8( stoi( ip.substr(start, stop - start) ) ) );
         start = stop + 1;
         stop = ip.find_first_of('.', start);
     }
-    parts.push_back(stoi(ip.substr(start)));
+    parts.push_back( as_uint8( stoi( ip.substr(start) ) ) );
 
     return std::move(parts);
 }
-
 
 void PrintIp(const vi& ip) {
     for (auto it = ip.begin() ; it != ip.end(); ++it) {
@@ -105,7 +116,8 @@ void FillIpPool(vvi& pool)
 }
 
 void SortIpPool(vvi& pool) {
-    std::sort(pool.begin(), pool.end(),
+    std::sort(pool.begin(), pool.end(), std::greater<vi>());
+    /*std::sort(pool.begin(), pool.end(),
         [] (const vi& a, const vi& b) {
             for (int i = 0; i < 4; ++i) {
                 if (a.at(i) != b.at(i)) {
@@ -114,7 +126,7 @@ void SortIpPool(vvi& pool) {
             }
             return true;
         }
-    );
+    );*/
 }
 
 #endif

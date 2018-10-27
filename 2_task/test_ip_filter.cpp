@@ -7,7 +7,7 @@
 
 BOOST_AUTO_TEST_SUITE(ip_filter_test_suite)
 
-std::vector<std::vector<int>> test_data = {
+std::vector<std::vector<uint8_t>> test_data = {
     {1,231,69,33},
     {10,87,203,225},
     {225,70,44,170},
@@ -16,7 +16,7 @@ std::vector<std::vector<int>> test_data = {
 };
 
 struct cout_redirect {
-    cout_redirect( std::streambuf * new_buffer )
+    explicit cout_redirect( std::streambuf * new_buffer )
         : old( std::cout.rdbuf( new_buffer ) )
     { }
 
@@ -47,8 +47,8 @@ BOOST_AUTO_TEST_CASE(ip_filter_test_out)
 
 BOOST_AUTO_TEST_CASE(ip_filter_test_sort)
 {
-    std::vector<std::vector<int>> unsorted_data = test_data;
-    std::vector<std::vector<int>> sorted_data = {
+    std::vector<std::vector<uint8_t>> unsorted_data = test_data;
+    std::vector<std::vector<uint8_t>> sorted_data = {
         {225,70,44,170},
         {49,44,168,152},
         {10,87,203,225},
@@ -70,11 +70,15 @@ BOOST_AUTO_TEST_CASE(ip_filter_test_filter)
         PrintIpPool(test_data, IpFilter(225_noone));
     }
     BOOST_CHECK( output.is_equal(
+        // IpFileter(1)
         "1.231.69.33\n"
         "1.1.234.8\n"
+        //  IpFilter(255, 70)
         "225.70.44.170\n"
         "225.70.44.170\n"
+        // IpFilter(44_any)
         "49.44.168.152\n"
+        // IpFilter(225_noone)
         "1.231.69.33\n"
         "49.44.168.152\n"
         "1.1.234.8\n"
