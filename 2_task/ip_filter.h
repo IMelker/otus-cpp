@@ -39,11 +39,11 @@ struct IpFilter
             return true;
         }
         case Type::OR:
-            return std::any_of(ip.begin(), ip.end(), data.front().first);
+            return std::any_of(ip.begin(), ip.end(), [&](uint8_t oct){ return oct == data.front().first; });
         case Type::XOR:
-            return std::none_of(ip.begin(), ip.end(), data.front().first);
+            return std::none_of(ip.begin(), ip.end(), [&](uint8_t oct){ return oct == data.front().first; });
         case Type::ALL:
-            return std::all_of(ip.begin(), ip.end(), data.front().first);
+            return std::all_of(ip.begin(), ip.end(), [&](uint8_t oct){ return oct == data.front().first; });
         case Type::NotValid:
             break;
         }
@@ -83,7 +83,7 @@ auto SplitForIntParts(const std::string&& ip){
 void PrintIp(const vi& ip) {
     for (auto it = ip.begin() ; it != ip.end(); ++it) {
         if (it != ip.cbegin()) std::cout << ".";
-        std::cout << *it;
+        std::cout << static_cast<int>(*it);
     }
     std::cout << std::endl;
 }
