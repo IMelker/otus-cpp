@@ -77,7 +77,7 @@ auto SplitForIntParts(const std::string&& ip){
     }
     parts.push_back( as_uint8( stoi( ip.substr(start) ) ) );
 
-    return std::move(parts);
+    return parts;
 }
 
 void PrintIp(const vi& ip) {
