@@ -1,8 +1,8 @@
 #define BOOST_TEST_MODULE helloworld_test_module
 
-#include "lib.h"
-
 #include <boost/test/unit_test.hpp>
+
+#include "1_task/lib.h"
 
 BOOST_AUTO_TEST_SUITE(helloworld_test_suite)
 

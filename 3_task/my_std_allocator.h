@@ -9,7 +9,7 @@ class MyStdAllocator {
  public:
   using value_type = T;
   using size_type = std::size_t;
-  using difference_type = ptrdiff_t;
+  //using difference_type = ptrdiff_t;
   using pointer = T*;
   using const_pointer = const T*;
   using reference = T&;

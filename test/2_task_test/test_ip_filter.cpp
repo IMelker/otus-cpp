@@ -3,7 +3,7 @@
 #include <boost/test/unit_test.hpp>
 #include <boost/test/output_test_stream.hpp>
 
-#include "ip_filter.h"
+#include "../../2_task/ip_filter.h"
 
 BOOST_AUTO_TEST_SUITE(ip_filter_test_suite)
 
