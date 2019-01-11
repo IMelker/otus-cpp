@@ -36,7 +36,7 @@ int main() {
   FillMap(simple_map,N);
   PrintMap(simple_map);
 
-  auto map_with_alloc = std::map<int, long long, std::less<>, ChunkedAllocator<std::pair<const std::string, std::string>, N>>{};
+  auto map_with_alloc = std::map<int, long long, std::less<int>, ChunkedAllocator<std::pair<const std::string, std::string>, N>>{};
   FillMap(map_with_alloc,N);
   PrintMap(map_with_alloc);
 
