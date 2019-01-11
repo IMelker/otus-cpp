@@ -1,0 +1,21 @@
+/home/imelker/Загрузки/clion-2018.2.5/bin/cmake/linux/bin/cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_C_COMPILER=/usr/bin/gcc-6 -DCMAKE_CXX_COMPILER=/usr/bin/g++ -G "CodeBlocks - Unix Makefiles" /home/imelker/workspace/git/otus-cpp
+-- The C compiler identification is GNU 6.3.0
+-- The CXX compiler identification is GNU 6.3.0
+-- Check for working C compiler: /usr/bin/gcc-6
+-- Check for working C compiler: /usr/bin/gcc-6 -- works
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Check for working CXX compiler: /usr/bin/g++
+-- Check for working CXX compiler: /usr/bin/g++ -- works
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+CMake Error at 1_task/CMakeLists.txt:3 (project):
+  VERSION "0.0." format invalid.
+
+
+-- Configuring incomplete, errors occurred!
+See also "/home/imelker/workspace/git/otus-cpp/build/CMakeFiles/CMakeOutput.log".

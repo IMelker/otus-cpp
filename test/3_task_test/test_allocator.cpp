@@ -8,12 +8,6 @@
 BOOST_AUTO_TEST_SUITE(allocator_test_suite)
 
 constexpr size_t N = 10;
-constexpr auto pair_size = sizeof(std::pair<int, long long>);
-std::map<int, long long> test_fractal_map = {
-    {0, 0}, {1, 1}, {2, 2}, {3, 6}, {4, 24}, {5, 120},
-    {6, 720}, {7, 5040}, {8, 40320}, {9, 362880}
-};
-
 BOOST_AUTO_TEST_CASE(allocator_test_map) {
   std::map<int, long long, std::less<int>, ChunkedAllocator<long long, N>> map;
 
