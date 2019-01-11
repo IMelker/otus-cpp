@@ -5,7 +5,6 @@
 #ifndef ALLOCATOR_CHUNKED_ALLOCATOR_H
 #define ALLOCATOR_CHUNKED_ALLOCATOR_H
 
-#include <cstddef>
 #include "memory_pool.h"
 
 // Allocates memory by N-byte chunks
@@ -14,7 +13,6 @@ class ChunkedAllocator {
  public:
   using value_type = T;
   using size_type = std::size_t;
-  using difference_type = ptrdiff_t;
   using pointer = T*;
   using const_pointer = const T*;
   using reference = T&;
