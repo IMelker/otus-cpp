@@ -1,9 +1,4 @@
-cmake_minimum_required(VERSION 3.12)
 include_directories(${CMAKE_BINARY_DIR}/1_task)
-
-if (NOT ENV{TRAVIS_BUILD_NUMBER})
-    set(ENV{TRAVIS_BUILD_NUMBER} 1)
-endif()
 
 project(helloworld VERSION 0.0.$ENV{TRAVIS_BUILD_NUMBER})
 

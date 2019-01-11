@@ -1,9 +1,3 @@
-cmake_minimum_required(VERSION 3.12)
-
-if (NOT ENV{TRAVIS_BUILD_NUMBER})
-    set(ENV{TRAVIS_BUILD_NUMBER} 1)
-endif()
-
 project(allocator VERSION 0.0.$ENV{TRAVIS_BUILD_NUMBER})
 
 add_executable(allocator main.cpp)

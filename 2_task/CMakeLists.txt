@@ -1,9 +1,3 @@
-cmake_minimum_required(VERSION 3.2)
-
-if (NOT ENV{TRAVIS_BUILD_NUMBER})
-    set(ENV{TRAVIS_BUILD_NUMBER} 1)
-endif()
-
 project(ip_filter VERSION 0.0.$ENV{TRAVIS_BUILD_NUMBER})
 
 add_executable(ip_filter ip_filter.cpp)
