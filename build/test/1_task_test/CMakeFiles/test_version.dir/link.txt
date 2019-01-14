@@ -1,0 +1,1 @@
+/usr/bin/g++  -Wpedantic -Wall -Wextra -g   CMakeFiles/test_version.dir/test_version.cpp.o  -o ../../bin/test_version  -L/home/imelker/workspace/git/otus-cpp/build/lib -Wl,-rpath,/home/imelker/workspace/git/otus-cpp/build/lib /usr/lib/x86_64-linux-gnu/libboost_unit_test_framework.so ../../lib/liblibhelloworld.a 

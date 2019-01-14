@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="print_ip"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="gcc"/>
+		<Option virtualFolders="CMake Files\;CMake Files\3_task\;CMake Files\1_task\;CMake Files\2_task\;CMake Files\4_task\;CMake Files\test\;CMake Files\test\1_task_test\;CMake Files\test\2_task_test\;CMake Files\test\3_task_test\;CMake Files\test\4_task_test\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="/home/imelker/workspace/git/otus-cpp/build/4_task"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j6 -f &quot;/home/imelker/workspace/git/otus-cpp/build/4_task/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/make -j6 -f &quot;/home/imelker/workspace/git/otus-cpp/build/4_task/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j6 -f &quot;/home/imelker/workspace/git/otus-cpp/build/4_task/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j6 -f &quot;/home/imelker/workspace/git/otus-cpp/build/4_task/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="print_ip">
+				<Option output="/home/imelker/workspace/git/otus-cpp/build/bin/print_ip" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/imelker/workspace/git/otus-cpp/build/bin"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/include/c++/6"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/6"/>
+					<Add directory="/usr/include/c++/6/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/6/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/6/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j6 -f &quot;/home/imelker/workspace/git/otus-cpp/build/4_task/Makefile&quot;  VERBOSE=1 print_ip"/>
+					<CompileFile command="/usr/bin/make -j6 -f &quot;/home/imelker/workspace/git/otus-cpp/build/4_task/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j6 -f &quot;/home/imelker/workspace/git/otus-cpp/build/4_task/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j6 -f &quot;/home/imelker/workspace/git/otus-cpp/build/4_task/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="print_ip/fast">
+				<Option output="/home/imelker/workspace/git/otus-cpp/build/bin/print_ip" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/imelker/workspace/git/otus-cpp/build/bin"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/include/c++/6"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/6"/>
+					<Add directory="/usr/include/c++/6/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/6/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/6/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j6 -f &quot;/home/imelker/workspace/git/otus-cpp/build/4_task/Makefile&quot;  VERBOSE=1 print_ip/fast"/>
+					<CompileFile command="/usr/bin/make -j6 -f &quot;/home/imelker/workspace/git/otus-cpp/build/4_task/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j6 -f &quot;/home/imelker/workspace/git/otus-cpp/build/4_task/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j6 -f &quot;/home/imelker/workspace/git/otus-cpp/build/4_task/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="/home/imelker/workspace/git/otus-cpp/4_task/main.cpp">
+			<Option target="print_ip"/>
+		</Unit>
+		<Unit filename="/home/imelker/workspace/git/otus-cpp/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+		<Unit filename="/home/imelker/workspace/git/otus-cpp/3_task/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\3_task\"/>
+		</Unit>
+		<Unit filename="/home/imelker/workspace/git/otus-cpp/1_task/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\1_task\"/>
+		</Unit>
+		<Unit filename="/home/imelker/workspace/git/otus-cpp/1_task/version.h.in">
+			<Option virtualFolder="CMake Files\1_task\"/>
+		</Unit>
+		<Unit filename="/home/imelker/workspace/git/otus-cpp/2_task/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\2_task\"/>
+		</Unit>
+		<Unit filename="/home/imelker/workspace/git/otus-cpp/4_task/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\4_task\"/>
+		</Unit>
+		<Unit filename="/home/imelker/workspace/git/otus-cpp/test/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\test\"/>
+		</Unit>
+		<Unit filename="/home/imelker/workspace/git/otus-cpp/test/1_task_test/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\test\1_task_test\"/>
+		</Unit>
+		<Unit filename="/home/imelker/workspace/git/otus-cpp/test/2_task_test/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\test\2_task_test\"/>
+		</Unit>
+		<Unit filename="/home/imelker/workspace/git/otus-cpp/test/3_task_test/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\test\3_task_test\"/>
+		</Unit>
+		<Unit filename="/home/imelker/workspace/git/otus-cpp/test/4_task_test/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\test\4_task_test\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>

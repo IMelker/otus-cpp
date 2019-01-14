@@ -1,0 +1,1 @@
+/usr/bin/g++  -Wpedantic -Wall -Wextra -g   CMakeFiles/test_print_ip.dir/test_print_ip.cpp.o  -o ../../bin/test_print_ip  -L/home/imelker/workspace/git/otus-cpp/build/lib -Wl,-rpath,/home/imelker/workspace/git/otus-cpp/build/lib /usr/lib/x86_64-linux-gnu/libboost_unit_test_framework.so 

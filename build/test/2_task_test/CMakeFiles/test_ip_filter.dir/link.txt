@@ -1,0 +1,1 @@
+/usr/bin/g++  -Wpedantic -Wall -Wextra -g   CMakeFiles/test_ip_filter.dir/test_ip_filter.cpp.o  -o ../../bin/test_ip_filter  -L/home/imelker/workspace/git/otus-cpp/build/lib -Wl,-rpath,/home/imelker/workspace/git/otus-cpp/build/lib /usr/lib/x86_64-linux-gnu/libboost_unit_test_framework.so 

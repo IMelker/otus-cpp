@@ -1,0 +1,24 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/imelker/workspace/git/otus-cpp/4_task/print_ip.h
+string
+-
+iostream
+-
+type_traits
+-
+
+/home/imelker/workspace/git/otus-cpp/test/4_task_test/test_print_ip.cpp
+boost/test/unit_test.hpp
+-
+boost/test/output_test_stream.hpp
+-
+../../4_task/print_ip.h
+/home/imelker/workspace/git/otus-cpp/4_task/print_ip.h
+

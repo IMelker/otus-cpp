@@ -1,0 +1,11 @@
+PROJECT_NAME = "PrintIp"
+INPUT = ../ \
+        ../README.md
+FILE_PATTERNS = *.h *.cpp
+RECURSIVE = yes
+GENERATE_HTML = yes
+EXTRACT_ALL = yes
+HAVE_DOT = yes
+HTML_OUTPUT = html
+OUTPUT_LANGUAGE = Russian
+USE_MDFILE_AS_MAINPAGE = ../README.md
