@@ -1,1 +1,0 @@
-/usr/bin/g++  -Wpedantic -Wall -Wextra -g   CMakeFiles/helloworld.dir/main.cpp.o  -o ../bin/helloworld ../lib/liblibhelloworld.a 

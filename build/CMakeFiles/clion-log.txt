@@ -1,7 +1,0 @@
-/home/imelker/Загрузки/clion-2018.2.5/bin/cmake/linux/bin/cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_C_COMPILER=/usr/bin/gcc-6 -DCMAKE_CXX_COMPILER=/usr/bin/g++ -G "CodeBlocks - Unix Makefiles" /home/imelker/workspace/git/otus-cpp
--- Boost version: 1.62.0
--- Found the following Boost libraries:
---   unit_test_framework
--- Configuring done
--- Generating done
--- Build files have been written to: /home/imelker/workspace/git/otus-cpp/build

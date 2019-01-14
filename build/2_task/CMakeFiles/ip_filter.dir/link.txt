@@ -1,1 +1,0 @@
-/usr/bin/g++  -Wpedantic -Wall -Wextra -g   CMakeFiles/ip_filter.dir/ip_filter.cpp.o  -o ../bin/ip_filter 
