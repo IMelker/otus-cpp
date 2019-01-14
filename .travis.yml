@@ -34,7 +34,8 @@ after_success:
       cd $TRAVIS_BUILD_DIR
       echo 'Generating Doxygen code documentation...'
       # Redirect both stderr and stdout to the log file AND the console.
-      doxygen doc/Doxyfile 2>&1 | tee doxygen.log
+      cd 4_task/doc
+      doxygen Doxyfile 2>&1 | tee doxygen.log
     fi
 deploy:
   - provider: script
