@@ -7,17 +7,11 @@
 
 var indexSectionsWithContent =
 {
-  0: "abcdfghilmnoprstvx~",
-  1: "cimnprs",
-  2: "cilmpstv",
-  3: "abcdfgimopsv~",
-  4: "dint",
-  5: "coprstv",
-  6: "t",
-  7: "anosx",
-  8: "io",
-  9: "abcdhips",
-  10: "h"
+  0: "hmpr",
+  1: "p",
+  2: "mpr",
+  3: "mp",
+  4: "h"
 };
 
 var indexSectionNames =
@@ -26,13 +20,7 @@ var indexSectionNames =
   1: "classes",
   2: "files",
   3: "functions",
-  4: "variables",
-  5: "typedefs",
-  6: "enums",
-  7: "enumvalues",
-  8: "related",
-  9: "defines",
-  10: "groups"
+  4: "groups"
 };
 
 function convertToId(search)

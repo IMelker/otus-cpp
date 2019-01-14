@@ -64,7 +64,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Поиск');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>Указатель</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Классы</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Файлы</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Функции</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Переменные</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Определения типов</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Перечисления</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Элементы перечислений</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Друзья</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Макросы</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(10)"><span class="SelectionMark">&#160;</span>Группы</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>Указатель</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Классы</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Файлы</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Функции</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Группы</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -78,10 +78,46 @@ var searchBox = new SearchBox("searchBox", "search",false,'Поиск');
 <div class="title">PrintIp Документация</div>  </div>
 </div><!--header-->
 <div class="contents">
-</div><!-- contents -->
+<div class="textblock"><p>#Условие</p>
+<p>**Реализовать функцию печати условного ip-адреса.**</p>
+<p>Адрес может быть представлен в виде <code>произвольного целочисленного типа</code>. Представление не зависит от знака типа. Выводить побайтово начиная со старшего с символом <code>.</code> в качестве разделителя.</p>
+<p>Адрес может быть представлен в виде <code>строки</code>. Выводится как есть.</p>
+<p>Адрес может быть представлен в виде контейнеров <code>std::list</code>, <code>std::vector</code>. Выводится содержимое контейнера поэлементно и разделяется . (одним символом точка).</p>
+<p>Опционально адрес может быть представлен в виде <code>std::tuple</code> при условии, что все типы одинаковы. Выводится содержимое поэлементно и разделяется . (одним символом точка).</p>
+<p>Прикладной код должен содержать следующие вызовы:</p>
+<ul>
+<li>Печать адреса как <code>char(-1)</code></li>
+<li>Печать адреса как <code>short(0)</code></li>
+<li>Печать адреса как <code>int(2130706433)</code></li>
+<li>Печать адреса как <code>long(8875824491850138409)</code></li>
+<li>Печать адреса как <code>std::string</code></li>
+<li>Печать адреса как <code>std::vector</code></li>
+<li>Печать адреса как <code>std::list</code></li>
+<li>Опционально. Печать адреса как <code>std::tuple</code></li>
+</ul>
+<p>Добавить в <code>.travis.yml</code> на этапе сборки вызов doxygen и публикацию html версии документации на github-pages. Подробное описание на странице:</p>
+<p><a href="https://docs.travis-ci.com/user/deployment/pages/">https://docs.travis-ci.com/user/deployment/pages/</a></p>
+<p>Включить в репозиторий файл <code>Doxyfile</code> с включенными опциями <code>HAVE_DOT</code> и <code>EXTRACT_ALL</code>.</p>
+<p>#Самоконтроль</p>
+<ul>
+<li>функция печати должна быть одной шаблонной функцией с частичными специализациями</li>
+<li>специализация для целочисленного представления должна быть единственная</li>
+<li>специализация для контейнеров должна быть единственная</li>
+<li>не должно быть реализации типа “если не совпало с иными - значит это контейнер”</li>
+<li>опциональная реализация для std::tuple должна приводить к ошибке в случае отличающихся типов</li>
+<li>найдите самый простой способ сделать для печати std::string</li>
+<li>пакет print_ip содержащий бинарный файл print_ip опубликован на bintray</li>
+<li>отправлена на проверку ссылка на страницу репозитория</li>
+</ul>
+<p>#Проверка</p>
+<p>Задание считается выполненным успешно если, после просмотра кода, установки пакета и запуска бинарного файла командой: ```sh $ print_ip ```</p>
+<p>будут выведены адреса</p>
+<p>``` 255 0.0 127.0.0.1 123.45.67.89.101.112.131.41 ```</p>
+<p>вслед за которыми будут выведены адреса из строки, контейнеров и опционально из кортежа. </p>
+</div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Документация по PrintIp. Последние изменения: Пн 14 Янв 2019 17:41:52. Создано системой &#160;<a href="http://www.doxygen.org/index.html">
+Документация по PrintIp. Последние изменения: Пн 14 Янв 2019 17:52:47. Создано системой &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

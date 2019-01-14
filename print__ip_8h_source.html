@@ -69,7 +69,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Поиск');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>Указатель</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Классы</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Файлы</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Функции</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Переменные</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Определения типов</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Перечисления</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Элементы перечислений</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Друзья</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Макросы</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(10)"><span class="SelectionMark">&#160;</span>Группы</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>Указатель</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Классы</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Файлы</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Функции</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Группы</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -108,7 +108,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Поиск');
 <div class="line"><a name="l00037"></a><span class="lineno"><a class="line" href="structPrintTuple.html#a721ea456b3a44ca50e961ca6c825e39e">   37</a></span>&#160;  <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="structPrintTuple.html#a721ea456b3a44ca50e961ca6c825e39e">print</a>(<span class="keyword">const</span> Tuple&amp; t) {</div>
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    static_assert(is_same_type(std::get&lt;N-1&gt;(t), std::get&lt;N-2&gt;(t)), <span class="stringliteral">&quot;different types in tuple!&quot;</span>);</div>
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <a class="code" href="structPrintTuple.html#a721ea456b3a44ca50e961ca6c825e39e">PrintTuple&lt;Tuple, N-1&gt;::print</a>(t);</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    std::cout &lt;&lt; separator &lt;&lt; std::get&lt;<a class="code" href="test__allocator_8cpp.html#ad8331653910a5a034f8238e6a8fbb9b1">N</a>-1&gt;(t);</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    std::cout &lt;&lt; separator &lt;&lt; std::get&lt;N-1&gt;(t);</div>
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;  }</div>
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;};</div>
 <div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;</div>
@@ -154,13 +154,12 @@ var searchBox = new SearchBox("searchBox", "search",false,'Поиск');
 <div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;<span class="preprocessor">#endif //OTUS_CPP_PRINT_IP_H</span></div>
 <div class="ttc" id="structPrintTuple_3_01Tuple_00_011_01_4_html_a754bf57d0ae819a00a35693144dd9789"><div class="ttname"><a href="structPrintTuple_3_01Tuple_00_011_01_4.html#a754bf57d0ae819a00a35693144dd9789">PrintTuple&lt; Tuple, 1 &gt;::print</a></div><div class="ttdeci">static void print(const Tuple &amp;t)</div><div class="ttdef"><b>Definition:</b> print_ip.h:46</div></div>
 <div class="ttc" id="structPrintTuple_html"><div class="ttname"><a href="structPrintTuple.html">PrintTuple</a></div><div class="ttdef"><b>Definition:</b> print_ip.h:36</div></div>
-<div class="ttc" id="test__allocator_8cpp_html_ad8331653910a5a034f8238e6a8fbb9b1"><div class="ttname"><a href="test__allocator_8cpp.html#ad8331653910a5a034f8238e6a8fbb9b1">N</a></div><div class="ttdeci">constexpr size_t N</div><div class="ttdef"><b>Definition:</b> test_allocator.cpp:10</div></div>
 <div class="ttc" id="structPrintTuple_html_a721ea456b3a44ca50e961ca6c825e39e"><div class="ttname"><a href="structPrintTuple.html#a721ea456b3a44ca50e961ca6c825e39e">PrintTuple::print</a></div><div class="ttdeci">static void print(const Tuple &amp;t)</div><div class="ttdef"><b>Definition:</b> print_ip.h:37</div></div>
 <div class="ttc" id="print__ip_8h_html_ae022f56ca0c4e9e6b0864f21a65cf6ae"><div class="ttname"><a href="print__ip_8h.html#ae022f56ca0c4e9e6b0864f21a65cf6ae">PrintIp</a></div><div class="ttdeci">void PrintIp(const ContainerT&lt; ValueT, std::allocator&lt; ValueT &gt;&gt; &amp;container)</div><div class="ttdoc">Prints ip address stored as std container like list or vector. </div><div class="ttdef"><b>Definition:</b> print_ip.h:67</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Документация по PrintIp. Последние изменения: Пн 14 Янв 2019 17:41:52. Создано системой &#160;<a href="http://www.doxygen.org/index.html">
+Документация по PrintIp. Последние изменения: Пн 14 Янв 2019 17:52:47. Создано системой &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

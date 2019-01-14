@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['chunkedallocator',['ChunkedAllocator',['../classChunkedAllocator.html',1,'']]],
-  ['chunkedallocator_3c_20void_2c_20n_20_3e',['ChunkedAllocator&lt; void, N &gt;',['../classChunkedAllocator_3_01void_00_01N_01_4.html',1,'']]],
-  ['cout_5fredirect',['cout_redirect',['../structcout__redirect.html',1,'']]]
+  ['printtuple',['PrintTuple',['../structPrintTuple.html',1,'']]],
+  ['printtuple_3c_20tuple_2c_201_20_3e',['PrintTuple&lt; Tuple, 1 &gt;',['../structPrintTuple_3_01Tuple_00_011_01_4.html',1,'']]]
 ];
