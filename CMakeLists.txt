@@ -16,14 +16,15 @@ set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
-#if (NOT ENV{TRAVIS_BUILD_NUMBER})
-#    set(ENV{TRAVIS_BUILD_NUMBER} 1)
-#endif()
+if (NOT ENV{TRAVIS_BUILD_NUMBER})
+    set(ENV{TRAVIS_BUILD_NUMBER} 1)
+endif()
 
 add_subdirectory(1_task)
 add_subdirectory(2_task)
 add_subdirectory(3_task)
 add_subdirectory(4_task)
+add_subdirectory(5_task)
 
 enable_testing()
 add_subdirectory(test)
