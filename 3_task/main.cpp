@@ -17,7 +17,6 @@ static void FillMap(T& map, int n) {
       factorial *= i;
       map[i] = factorial;
     }
-    std::cout << std::endl;
   }
 }
 
@@ -44,11 +43,11 @@ int main() {
   for (int i = 0; i < 10; ++i) {
     s_list.Add(i);
   }
-  std::cout << s_list;
+  std::cout << s_list << std::endl;
 
   auto s_list_with_alloc = SList<int, ChunkedAllocator<int, N>>{};
   for (int i = 0; i < 10; ++i) {
-    s_list_with_alloc.Add(i);
+    s_list_with_alloc.Add(std::move(i));
   }
   std::cout << s_list_with_alloc;
   return 0;

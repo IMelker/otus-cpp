@@ -7,6 +7,19 @@
 #include <map>
 #include <iostream>
 
+#ifdef DEBUG_LOG
+template <typename Arg, typename... Args>
+void log(Arg&& arg, Args&&... args) {
+  std::cout << std::forward<Arg>(arg);
+  using expander = int[];
+  (void)expander{0, (void(std::cout << std::forward<Args>(args)), 0)...};
+  std::cout << std::endl;
+}
+#define LOG(...) log(__VA_ARGS__)
+#else
+#define LOG(...)
+#endif /* DEBUG */
+
 template<typename T, size_t N>
 class MemoryPool {
  public:
@@ -21,14 +34,12 @@ class MemoryPool {
   using Chunk = std::array<T, N>;
 
   T *Alloc(size_t n) {
-    std::cout << __PRETTY_FUNCTION__ << "[n = " << n << "]" << "\n";
+    LOG(__PRETTY_FUNCTION__, "[n = ", n , "]");
     for (auto &chunk : memoryPool) {
       auto &ar = *chunk.first;
       if (chunk.second + n <= N) {
         T *ptr = &ar[0] + chunk.second;
-        std::cout << "--- already allocated: " << ptr << ", "
-                  << "chunk_start: " << chunk.first << ", "
-                  << "chunk_elem: " << chunk.second << std::endl;
+        LOG("--- already allocated: ", ptr, "chunk_start: ", chunk.first, ", ", "chunk_elem: ", chunk.second);
         chunk.second += n;
         return ptr;
       }
@@ -37,9 +48,8 @@ class MemoryPool {
   }
 
   void Dealloc(T *p) {
-    std::cout << __PRETTY_FUNCTION__ << "\n--- deallocate: " << p;
     auto chunk = std::prev(memoryPool.upper_bound(reinterpret_cast<Chunk *>(p)));
-    std::cout << " deallocate, chunk: " << chunk->first << std::endl;
+    LOG(__PRETTY_FUNCTION__, "\n--- deallocate: ", p, " deallocate, chunk: ", chunk->first);
     if (--chunk->second == 0) {
       delete chunk->first;
       memoryPool.erase(chunk);
@@ -49,7 +59,7 @@ class MemoryPool {
  private:
   MemoryPool() = default;
   ~MemoryPool() {
-    std::cout << __PRETTY_FUNCTION__;
+    LOG(__PRETTY_FUNCTION__);
     for (auto &chunk : memoryPool) {
       delete chunk->first;
     }
@@ -61,12 +71,12 @@ class MemoryPool {
   MemoryPool &operator=(MemoryPool &&) = delete;
 
   T *AppendNewChunk(size_t n) {
-    std::cout << __PRETTY_FUNCTION__ << "[n = " << n << "]\n";
+    LOG(__PRETTY_FUNCTION__, "[n = ", n, "]");
     auto newChunk = new Chunk();
     memoryPool.emplace(newChunk, n);
     auto &ar = *newChunk;
     auto ptr = &ar[0];
-    std::cout << "--- new allocate: " << ptr << std::endl;
+    LOG("--- new allocate: ", ptr);
     return ptr;
   }
 

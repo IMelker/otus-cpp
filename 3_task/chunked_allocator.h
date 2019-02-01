@@ -45,14 +45,14 @@ class ChunkedAllocator {
 template <typename T, size_t N>
 typename ChunkedAllocator<T, N>::pointer ChunkedAllocator<T, N>
     ::allocate(size_type n, const void* /*hint*/) {
-  std::cout << __PRETTY_FUNCTION__ << "[n = " << n << "]" << std::endl;
+  LOG(__PRETTY_FUNCTION__, "[n = ", n, "]");
   return MemoryPool<T, N>::GetInstance().Alloc(n);
 }
 
 template <typename T, size_t N>
 void ChunkedAllocator<T, N>
     ::deallocate(pointer p, size_type) {
-  std::cout << __PRETTY_FUNCTION__ << std::endl;
+  LOG(__PRETTY_FUNCTION__);
   MemoryPool<T, N>::GetInstance().Dealloc(p);
 }
 
@@ -60,7 +60,7 @@ template <typename T, size_t N>
 template <typename U, typename... Args>
 void ChunkedAllocator<T, N>
     ::construct(U* p, Args&&... args) {
-  std::cout << __PRETTY_FUNCTION__ << std::endl;
+  LOG(__PRETTY_FUNCTION__);
   ::new((void*)p) U(std::forward<Args>(args)...);
 }
 
@@ -68,7 +68,7 @@ template <typename T, size_t N>
 template <typename U>
 void ChunkedAllocator<T, N>
     ::destroy(U* p) {
-  std::cout << __PRETTY_FUNCTION__ << std::endl;
+  LOG(__PRETTY_FUNCTION__);
   p->~U();
 }
 

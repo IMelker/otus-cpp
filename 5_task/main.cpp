@@ -31,6 +31,7 @@ int main () {
   std::cout << "\n" << matrix.size() << std::endl;
 
   /*for(auto c: matrix) {
+    std::cout << c;
     int x;
     int y;
     int v;
