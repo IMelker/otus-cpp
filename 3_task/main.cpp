@@ -39,16 +39,17 @@ int main() {
   FillMap(map_with_alloc,N);
   PrintMap(map_with_alloc);
 
-  auto s_list = SList<int>{};
+  SList<int> s_list{};
   for (int i = 0; i < 10; ++i) {
-    s_list.Add(i);
+    s_list.Emplace(i);
   }
   std::cout << s_list << std::endl;
 
-  auto s_list_with_alloc = SList<int, ChunkedAllocator<int, N>>{};
-  for (int i = 0; i < 10; ++i) {
-    s_list_with_alloc.Add(std::move(i));
+  SList<int, ChunkedAllocator<int, N>> s_list_with_alloc{};
+  for (int i = 10; i < 20; ++i) {
+    s_list_with_alloc.Emplace(i);
   }
   std::cout << s_list_with_alloc;
+
   return 0;
 }

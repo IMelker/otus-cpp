@@ -25,7 +25,7 @@ BOOST_AUTO_TEST_CASE(allocator_test_s_list) {
   List list;
 
   for (int i = 0; i < 1000; ++i) {
-    list.Add(i);
+    list.Emplace(i);
   }
 
   List::Iterator it(&list);

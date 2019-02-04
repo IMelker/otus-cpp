@@ -16,64 +16,15 @@ class SList {
   SList();
   ~SList();
 
-  SList(const SList& other) {
-    DestroyLinkedNodes(head);
-    head = nullptr;
+  SList(SList& other);
+  SList& operator=(SList other);
 
-    auto node = other.head;
-    while (node != nullptr) {
-      Add(node->data);
-      node = node->next;
-    }
-  }
+  //SList& operator=(SList&& other) {
+  //  SList(std::move(other));
+  //  return *this;
+  //}
 
-  SList& operator=(SList other) {
-    std::swap(head, other.Head);
-    return *this;
-  }
-
-  SList(SList&& other) {
-    auto ptr = head;
-    auto other_ptr = other.head;
-    while (ptr != nullptr) {
-      auto next = ptr->next;
-
-      if (other_ptr == nullptr) {
-        DestroyLinkedNodes(ptr->next);
-        ptr->next = nullptr;
-        break;
-      }
-      auto other_next = other_ptr->next;
-
-      ptr = other_ptr;
-      ptr->next = next;
-      other_ptr = other_next;
-
-      ptr = ptr->next;
-    }
-    while (other_ptr != nullptr) {
-      auto other_next = other_ptr->next;
-
-      if (ptr == nullptr) {
-        Add(std::move(other_ptr->data));
-        other_ptr->data = T();
-      } else {
-        auto next = ptr->next;
-        ptr = other_ptr;
-        ptr->next = next;
-      }
-      other_ptr = other_next;
-      ptr = ptr->next;
-    }
-  }
-
-  SList& operator=(SList&& other) {
-    SList(std::move(other));
-    return *this;
-  }
-
-  template<typename U = T> //for type inference
-  void Add(U&& data);
+  void Add(Node data);
   template<typename... Args>
   void Emplace(Args&&... args);
 
@@ -107,7 +58,6 @@ class SList {
 
  private:
   void Destroy(Node *node);
-  void DestroyLinkedNodes(Node *node);
 
   Node *head;
   Node *tail;
@@ -125,7 +75,27 @@ SList<T, A>::SList()
 
 template<typename T, typename A>
 SList<T, A>::~SList() {
-  DestroyLinkedNodes(head);
+  auto ptr = head;
+  while (ptr != nullptr) {
+    Node* next = ptr->next;
+    Destroy(ptr);
+    ptr = next;
+  }
+}
+
+template<typename T, typename A>
+SList<T, A>::SList(SList<T, A>& other) : head(nullptr) {
+  auto node = other.head;
+  while (node != nullptr) {
+    Emplace(node->data);
+    node = node->next;
+  }
+}
+
+template<typename T, typename A>
+SList<T, A>& SList<T, A>::operator=(SList<T, A> other) {
+  std::swap(head, other.head);
+  return *this;
 }
 
 template<typename T, typename A>
@@ -135,19 +105,9 @@ void SList<T, A>::Destroy(Node* node) {
 }
 
 template<typename T, typename A>
-void SList<T, A>::DestroyLinkedNodes(Node *node) {
-  auto ptr = node;
-  while (ptr != nullptr) {
-    auto next = ptr->next;
-    Destroy(ptr);
-    ptr = next;
-  }
-}
-
-template<typename T, typename A> template<typename U>
-void SList<T, A>::Add(U&& data) {
+void SList<T, A>::Add(Node data) {
   Node *node = allocNode.allocate(1);
-  allocNode.construct(node, Node{std::forward<U>(data), nullptr});
+  allocNode.construct(node, std::move(data));
   if (tail != nullptr)
     tail->next = node;
   tail = node;
