@@ -18,7 +18,7 @@ void log(Arg&& arg, Args&&... args) {
 #define LOG(...) log(__VA_ARGS__)
 #else
 #define LOG(...)
-#endif /* DEBUG */
+#endif /* DEBUG_LOG */
 
 template<typename T, size_t N>
 class MemoryPool {

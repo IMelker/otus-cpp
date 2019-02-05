@@ -1,175 +1,198 @@
 //
-// Created by imelker on 1/15/19.
+// Created by imelker on 2/5/19.
 //
 
 #ifndef OTUS_CPP_MATRIX_H
 #define OTUS_CPP_MATRIX_H
 
 #include <map>
-#include <tuple>
 #include <vector>
 #include <algorithm>
-#include <iterator>
+#include "helpers.h"
 
-//template <typename T, T DEFAULT, int N>
-//class MatrixIterator;
-
-/**
-* @brief  Helper for creating a tuple of N Elements
-*/
-template<size_t, class T>
-using T_ = T;
-
-template<class T, size_t... Is>
-auto gen(std::index_sequence<Is...>) { return std::tuple<T_<Is, T>...>{}; }
-
-template<class T, size_t N>
-auto gen() { return gen<T>(std::make_index_sequence<N>{}); }
-
-
-
-template<typename T, T DEFAULT, int N = 2>
-struct Data {
-  using FullTuple = decltype(gen<T, N>());
-  using KeysTuple = decltype(gen<T, N-1>());
-
-  Data() : data_value(T()) {}
-  Data(const T &value) : data_value(value) {}
-
-  void setKeys(KeysTuple tuple) { key_ = tuple;};
-
-  operator Data&() {
-    return *this;
-  };
-  operator const T&() const{
-    return data_value;
-  };
-
-  Data& operator= (const T &value) {
-    data_value = value;
-    if (data_value != DEFAULT) {
-      all_values.push_back(std::tuple_cat(key_, std::tie(value)));
-    }
-    return *this;
-  }
-  friend std::ostream& operator<<(std::ostream& out, const Data &data){
-    out << data.data_value;
-    return out;
-  }
-
-  KeysTuple key_;
-  T data_value;
-  static std::vector<FullTuple> all_values;
-};
+template <typename T, T DEFAULT, int N, int MAX>
+class MatrixStep;
+template <typename T, T DEFAULT, int MAX>
+class MatrixElement;
 
 /**
- * @brief  Template matrix class with default values and depth
+ * @brief Main Matrix class for user interface
  */
- template <typename T, T DEFAULT, int N = 2, int Z = 1>
+template <typename T, T DEFAULT, int N = 2>
 class Matrix {
-  using MatrixData = Matrix<T, DEFAULT, N, Z + 1>;
-  using KeysTuple = decltype(gen<T, N-1>());
+  using MatrixStepTDN = MatrixStep<T, DEFAULT, N-1, N>;
+  using KeyTuple = decltype(make_N_tuple<T, N>());
+  using Iterators = std::vector<std::pair<KeyTuple, MatrixElement<T, DEFAULT, N>*>>;
  public:
-  Matrix() : tuple_(KeysTuple()) { static_assert(N >= 1, "Matrix depth can't be less than 1"); }
-  Matrix(KeysTuple tuple) : tuple_(std::forward<KeysTuple>(tuple)) {}
+ /**
+  * @brief Constructor with default MatrixStep for first row
+  */
+  Matrix() : data_(make_N_tuple<T, N>(), iterator_data_) {
+  };
 
-  MatrixData& operator [](int idx) {
-    auto new_tuple = tuple_;
-    std::get<Z-1>(new_tuple) = idx;
+  MatrixStep<T,DEFAULT,N-2, N>& operator [](int idx) {
+    auto it = data_.find(idx);
+    if (it != data_.end()) {
+      return it->second;
+    }
+    auto key_tuple = make_N_tuple<T, N>();
+    std::get<0>(key_tuple) = idx;
 
-    auto data = MatrixData(std::move(new_tuple));
-    return data_.insert(std::make_pair(idx, data)).first->second;
+    auto step = MatrixStep<T,DEFAULT,N-2, N>(key_tuple, iterator_data_);
+    auto emplace_it = data_.emplace(idx, step);
+    return emplace_it.first->second;
   }
 
   auto begin() {
-    return data_.begin()->second.begin();
+    return iterator_data_.begin();
   }
 
   auto end() {
-    return data_.end()->second.end();
+    return iterator_data_.end();
   }
 
   size_t size() {
+    return data_.size();
+  }
+
+ private:
+  MatrixStepTDN data_;
+  Iterators iterator_data_;
+};
+
+/**
+ * @brief Matrix subclass for bracket operator N depth
+ */
+template<typename T, T DEFAULT, int N, int MAX>
+class MatrixStep {
+  using MatrixStepTDN = MatrixStep<T, DEFAULT, N-1, MAX>;
+  using KeyTuple = decltype(make_N_tuple<T, MAX>());
+  using Iterators = std::vector<std::pair<KeyTuple, MatrixElement<T, DEFAULT, MAX>*>>;
+ public:
+  MatrixStep(KeyTuple tuple, Iterators& iterator_data)
+    : key_tuple_(std::move(tuple))
+    , iterator_data_(iterator_data) {
+  }
+
+  MatrixStepTDN& operator [](int idx) {
+    auto it = data_.find(idx);
+    if (it != data_.end()) {
+      return it->second;
+    }
+    std::get<MAX-N-1>(key_tuple_) = idx;
+
+    auto step = MatrixStepTDN(key_tuple_, iterator_data_);
+    return data_.emplace(std::make_pair(idx, step)).first->second;
+  }
+
+  auto find(int idx) {
+    return data_.find(idx);
+  }
+
+  auto end() {
+    return data_.end();
+  }
+
+  template <class... Args>
+  auto emplace(Args&&... args) {
+    return data_.emplace(args...);
+  }
+
+  size_t size() const {
     size_t size_ = 0;
     for (auto& node : data_) {
       size_ += node.second.size();
     }
     return size_;
   }
+
  private:
-  KeysTuple tuple_;
-  std::map<int, MatrixData> data_;
+  std::map<int, MatrixStepTDN> data_;
+  KeyTuple key_tuple_;
+  Iterators& iterator_data_;
 };
 
 /**
- * @brief  Specialization for last Matrix class with max depth
+ * @brief Last step element in Matrix specialization
  */
-template <typename T, T DEFAULT, int N>
-class Matrix<T, DEFAULT, N, N> {
-  using data = Data<T, DEFAULT, N>;
-  using KeysTuple = decltype(gen<T, N-1>());
+template<typename T, T DEFAULT, int MAX>
+class MatrixStep<T,DEFAULT, 0, MAX> {
+  using KeyTuple = decltype(make_N_tuple<T, MAX>());
+  using Iterators = std::vector<std::pair<KeyTuple, MatrixElement<T, DEFAULT, MAX>*>>;
  public:
-  Matrix(KeysTuple tuple) : tuple_(std::forward<KeysTuple>(tuple)) {}
-  data& operator [](int idx) {
+  MatrixStep(KeyTuple tuple, Iterators& iterator_data)
+      : key_tuple_(std::move(tuple))
+      , iterator_data_(iterator_data) {
+  }
+
+  MatrixElement<T, DEFAULT, MAX>& operator [](int idx) {
     auto it = data_.find(idx);
     if (it != data_.end()) {
-      return data_[idx];
+      return it->second;
     }
-    return data_[idx] = DEFAULT;
-  }
+    std::get<MAX-1>(key_tuple_) = idx;
 
-  auto begin() {
-    return data::all_values.begin();
-  }
-
-  auto end() {
-    return data::all_values.end();
+    auto step = MatrixElement<T, DEFAULT, MAX>(key_tuple_, iterator_data_);
+    return data_.emplace(std::make_pair(idx, step)).first->second;
   }
 
   long size() const {
-    return std::count_if(data_.begin(), data_.end(), [](auto i) {return i.second.data_value != DEFAULT;});
+    return std::count_if(data_.begin(), data_.end(), [](auto i) {return i.second.data_value_ != DEFAULT;});
   }
 
  private:
-  KeysTuple tuple_;
-  std::map<int, data> data_;
+  std::map<int, MatrixElement<T, DEFAULT, MAX>> data_;
+  KeyTuple key_tuple_;
+  Iterators& iterator_data_;
 };
-
-
-
+/**@{*/
 
 /**
- * @brief  Iterator for matrix element's iteration
+ * @brief Matrix element data class
  */
-/*
-template <typename T, T DEFAULT, int N = 2>
-class MatrixIterator: public std::iterator<std::input_iterator_tag, T>
-{
-  using matrix_tuple = decltype(gen<T, N>());
- private:
-  MatrixIterator(T* p) : p_(p) {}
+template <typename T, T DEFAULT, int MAX>
+class MatrixElement {
+  using KeyTuple = decltype(make_N_tuple<T, MAX>());
+  using Iterators = std::vector<std::pair<KeyTuple, MatrixElement<T, DEFAULT, MAX>*>>;
  public:
-  MatrixIterator(const MatrixIterator &it) : p_(it.p_) { }
-
-  static void addIterator(matrix_tuple& full_path_tuple) {
-    ptr_v_.push_back(full_path_tuple);
+  MatrixElement(KeyTuple tuple, Iterators& iterator_data)
+      : key_tuple_(tuple)
+      , iterator_data_(iterator_data)
+      , data_value_(DEFAULT) {
   }
 
-  bool operator!=(MatrixIterator const& other) const {
-    return p_ != other.p;
-  }
-
-  typename MatrixIterator::reference operator*() const {
-    return *p_;
-  }
-
-  MatrixIterator& operator++() {
-    ++p_;
+  MatrixElement& operator= (const T &value) {
+    data_value_ = value;
+    auto it = std::find_if(iterator_data_.begin(), iterator_data_.end(),
+        [&] (const std::pair<KeyTuple, MatrixElement<T, DEFAULT, MAX>*>& pair) {
+          return (pair.first == key_tuple_);
+        });
+    if (value == DEFAULT) {
+      if (it != iterator_data_.end()) {
+        iterator_data_.erase(it);
+      }
+      return *this;
+    }
+    if (it != iterator_data_.end()) {
+      *it = std::make_pair(key_tuple_, this);
+    } else {
+      iterator_data_.emplace_back(key_tuple_, this);
+    }
     return *this;
   }
+
+  template <typename U, U DEFAULT_, int MAX_>
+  friend std::ostream& operator<<(std::ostream& stream, const MatrixElement<U, DEFAULT_, MAX_>& element);
+
+  T data_value_;
  private:
-  T* p_; // current
-  static std::vector<matrix_tuple> ptr_v_;
+  KeyTuple key_tuple_;
+  Iterators& iterator_data_;
 };
-*/
+
+template <typename U, U DEFAULT_, int MAX_>
+std::ostream& operator<<(std::ostream& stream, const MatrixElement<U, DEFAULT_, MAX_>& element) {
+  return stream << element.data_value_;
+}
+
 #endif //OTUS_CPP_MATRIX_H

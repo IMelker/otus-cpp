@@ -6,37 +6,6 @@
 #include <iostream>
 #include "matrix.h"
 
-/**
- * \defgroup helpers
- * Helper function to print a tuple of any size
- */
-// helper function to print a tuple of any size
-template<class Tuple, std::size_t N>
-struct TuplePrinter {
-  static void print(const Tuple& t)
-  {
-    TuplePrinter<Tuple, N-1>::print(t);
-    std::cout << ", " << std::get<N-1>(t);
-  }
-};
-
-template<class Tuple>
-struct TuplePrinter<Tuple, 1> {
-  static void print(const Tuple& t)
-  {
-    std::cout << std::get<0>(t);
-  }
-};
-
-template<class... Args>
-void print(const std::tuple<Args...>& t)
-{
-  std::cout << "(";
-  TuplePrinter<decltype(t), sizeof...(Args)>::print(t);
-  std::cout << ")\n";
-}
-/**@}*/
-
 int main () {
   Matrix<int, 0> matrix;
   assert(matrix.size() == 0);
@@ -61,14 +30,32 @@ int main () {
 
   std::cout << "\n" << matrix.size() << std::endl;
 
-  /*for(auto c: matrix) {
-    std::cout << c;
+  for(auto c: matrix) {
+    std::cout << std::endl;
+    int x, y;
+    int v = c.second->data_value_;
+    std::tie(x, y) = c.first;
+    std::cout << "x[" << x << "] y[" << y << "] v=" << v << std::endl;
+  }
+
+  /*matrix[2][2] = 0;
+  matrix[2][7] = 0;
+
+  std::cout << "\n" << matrix.size() << std::endl;
+
+  matrix[2][7] = 1;
+
+  for(auto c: matrix) {
+    std::cout << std::endl;
     int x;
     int y;
-    int v;
-    std::tie(x, y, v) = c;
+    int v = c.second->data_value_;
+    std::tie(x, y) = c.first;
     std::cout << "x[" << x << "] y[" << y << "] v=" << v << std::endl;
-  }*/
+  }
+
+  std::cout << "\n" <<matrix[2111][7111] << std::endl;
+  std::cout << "\n" <<matrix[12][12] << std::endl;*/
 
   return 0;
 }
