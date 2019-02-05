@@ -17,6 +17,6 @@ int main () {
   PrintIp(std::list<std::string>{"255", "255", "255", "255"});
   PrintIp(std::make_tuple(127, 0, 0, 1));
   PrintIp(std::make_tuple("127", "0", "0", "1"));
-  //PrintIp(std::make_tuple(127, 0, 0, "1"));
+  PrintIp(std::make_tuple(127, 0, 0, 1));
   return 0;
 }

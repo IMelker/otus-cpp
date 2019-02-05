@@ -24,7 +24,7 @@ template<class... Types>
 struct has_same_types;
 
 template<class T, class... Types>
-struct has_same_types<T, T, Types...> : has_same_types<Types...> {};
+struct has_same_types<T, T, Types...> : has_same_types<T, Types...> {};
 
 template<class T, class U, class... Types>
 struct has_same_types<T, U, Types...> : std::false_type {};
