@@ -16,31 +16,52 @@ template <typename T, T DEFAULT, int MAX>
 class MatrixElement;
 
 /**
+ * @brief helper recoursive erase method
+ */
+template<typename T, T DEFAULT, int N, int MAX>
+void RecursiveErase(MatrixStep<T, DEFAULT, N, MAX>& data, const decltype(make_N_tuple<int, MAX>())& tuple) {
+  auto idx = std::get<MAX-N-1>(tuple);
+  auto it = data.find(idx);
+  if (it != data.end()) {
+    RecursiveErase(it->second, tuple);
+    if (it->second.size() == 0) {
+      data.erase(idx);
+    }
+  }
+}
+
+template <typename T, T DEFAULT, int MAX>
+void RecursiveErase(MatrixElement<T, DEFAULT, MAX>&, const decltype(make_N_tuple<int, MAX>())&) {
+  return;
+}
+/**@{*/
+
+/**
  * @brief Main Matrix class for user interface
  */
 template <typename T, T DEFAULT, int N = 2>
 class Matrix {
   using MatrixStepTDN = MatrixStep<T, DEFAULT, N-1, N>;
-  using KeyTuple = decltype(make_N_tuple<T, N>());
+  using KeyTuple = decltype(make_N_tuple<int, N>());
   using Iterators = std::vector<std::pair<KeyTuple, MatrixElement<T, DEFAULT, N>*>>;
  public:
  /**
   * @brief Constructor with default MatrixStep for first row
   */
-  Matrix() : data_(make_N_tuple<T, N>(), iterator_data_) {
+  Matrix() : data_(make_N_tuple<int, N>(), iterator_data_, this) {
   };
+  ~Matrix() = default;
 
   MatrixStep<T,DEFAULT,N-2, N>& operator [](int idx) {
     auto it = data_.find(idx);
     if (it != data_.end()) {
       return it->second;
     }
-    auto key_tuple = make_N_tuple<T, N>();
+    auto key_tuple = make_N_tuple<int, N>();
     std::get<0>(key_tuple) = idx;
-
-    auto step = MatrixStep<T,DEFAULT,N-2, N>(key_tuple, iterator_data_);
-    auto emplace_it = data_.emplace(idx, step);
-    return emplace_it.first->second;
+    return data_.emplace(idx,
+        MatrixStep<T,DEFAULT,N-2, N>(key_tuple, iterator_data_, this)
+            ).first->second;
   }
 
   auto begin() {
@@ -55,6 +76,10 @@ class Matrix {
     return data_.size();
   }
 
+  void erase(const KeyTuple& tuple) {
+    RecursiveErase(data_, tuple);
+  }
+
  private:
   MatrixStepTDN data_;
   Iterators iterator_data_;
@@ -66,13 +91,16 @@ class Matrix {
 template<typename T, T DEFAULT, int N, int MAX>
 class MatrixStep {
   using MatrixStepTDN = MatrixStep<T, DEFAULT, N-1, MAX>;
-  using KeyTuple = decltype(make_N_tuple<T, MAX>());
+  using KeyTuple = decltype(make_N_tuple<int, MAX>());
   using Iterators = std::vector<std::pair<KeyTuple, MatrixElement<T, DEFAULT, MAX>*>>;
+  using MainType = Matrix<T,DEFAULT, MAX>;
  public:
-  MatrixStep(KeyTuple tuple, Iterators& iterator_data)
+  MatrixStep(KeyTuple tuple, Iterators& iterator_data, MainType* main)
     : key_tuple_(std::move(tuple))
-    , iterator_data_(iterator_data) {
+    , iterator_data_(iterator_data)
+    , main_(main) {
   }
+  ~MatrixStep() = default;
 
   MatrixStepTDN& operator [](int idx) {
     auto it = data_.find(idx);
@@ -80,9 +108,9 @@ class MatrixStep {
       return it->second;
     }
     std::get<MAX-N-1>(key_tuple_) = idx;
-
-    auto step = MatrixStepTDN(key_tuple_, iterator_data_);
-    return data_.emplace(std::make_pair(idx, step)).first->second;
+    return data_.emplace(idx,
+        MatrixStepTDN(key_tuple_, iterator_data_, main_)
+        ).first->second;
   }
 
   auto find(int idx) {
@@ -106,10 +134,15 @@ class MatrixStep {
     return size_;
   }
 
+  void erase(int idx) {
+    data_.erase(idx);
+  }
+
  private:
   std::map<int, MatrixStepTDN> data_;
   KeyTuple key_tuple_;
   Iterators& iterator_data_;
+  MainType* main_;
 };
 
 /**
@@ -117,13 +150,16 @@ class MatrixStep {
  */
 template<typename T, T DEFAULT, int MAX>
 class MatrixStep<T,DEFAULT, 0, MAX> {
-  using KeyTuple = decltype(make_N_tuple<T, MAX>());
+  using KeyTuple = decltype(make_N_tuple<int, MAX>());
   using Iterators = std::vector<std::pair<KeyTuple, MatrixElement<T, DEFAULT, MAX>*>>;
+  using MainType = Matrix<T,DEFAULT, MAX>;
  public:
-  MatrixStep(KeyTuple tuple, Iterators& iterator_data)
+  MatrixStep(KeyTuple tuple, Iterators& iterator_data, MainType* main)
       : key_tuple_(std::move(tuple))
-      , iterator_data_(iterator_data) {
+      , iterator_data_(iterator_data)
+      , main_(main)  {
   }
+  ~MatrixStep() = default;
 
   MatrixElement<T, DEFAULT, MAX>& operator [](int idx) {
     auto it = data_.find(idx);
@@ -131,19 +167,32 @@ class MatrixStep<T,DEFAULT, 0, MAX> {
       return it->second;
     }
     std::get<MAX-1>(key_tuple_) = idx;
+    return data_.emplace(
+        idx, MatrixElement<T, DEFAULT, MAX>(key_tuple_, iterator_data_, main_)
+            ).first->second;
+  }
 
-    auto step = MatrixElement<T, DEFAULT, MAX>(key_tuple_, iterator_data_);
-    return data_.emplace(std::make_pair(idx, step)).first->second;
+  auto find(int idx) {
+    return data_.find(idx);
+  }
+
+  auto end() {
+    return data_.end();
   }
 
   long size() const {
     return std::count_if(data_.begin(), data_.end(), [](auto i) {return i.second.data_value_ != DEFAULT;});
   }
 
+  void erase(int idx) {
+    data_.erase(idx);
+  }
+
  private:
   std::map<int, MatrixElement<T, DEFAULT, MAX>> data_;
   KeyTuple key_tuple_;
   Iterators& iterator_data_;
+  MainType* main_;
 };
 /**@{*/
 
@@ -152,16 +201,23 @@ class MatrixStep<T,DEFAULT, 0, MAX> {
  */
 template <typename T, T DEFAULT, int MAX>
 class MatrixElement {
-  using KeyTuple = decltype(make_N_tuple<T, MAX>());
+  using KeyTuple = decltype(make_N_tuple<int, MAX>());
   using Iterators = std::vector<std::pair<KeyTuple, MatrixElement<T, DEFAULT, MAX>*>>;
+  using MainType = Matrix<T,DEFAULT, MAX>;
  public:
-  MatrixElement(KeyTuple tuple, Iterators& iterator_data)
-      : key_tuple_(tuple)
+  MatrixElement(KeyTuple tuple, Iterators& iterator_data, MainType* main)
+      : data_value_(DEFAULT)
+      , key_tuple_(tuple)
       , iterator_data_(iterator_data)
-      , data_value_(DEFAULT) {
+      , main_(main) {
   }
+  ~MatrixElement() = default;
 
   MatrixElement& operator= (const T &value) {
+    if (data_value_ == value && value != DEFAULT) {
+      return *this;
+    }
+
     data_value_ = value;
     auto it = std::find_if(iterator_data_.begin(), iterator_data_.end(),
         [&] (const std::pair<KeyTuple, MatrixElement<T, DEFAULT, MAX>*>& pair) {
@@ -169,6 +225,7 @@ class MatrixElement {
         });
     if (value == DEFAULT) {
       if (it != iterator_data_.end()) {
+        main_->erase(key_tuple_);
         iterator_data_.erase(it);
       }
       return *this;
@@ -181,6 +238,12 @@ class MatrixElement {
     return *this;
   }
 
+  operator const T&() const {
+    return data_value_;
+  };
+
+  long size() {return 0;};
+
   template <typename U, U DEFAULT_, int MAX_>
   friend std::ostream& operator<<(std::ostream& stream, const MatrixElement<U, DEFAULT_, MAX_>& element);
 
@@ -188,6 +251,7 @@ class MatrixElement {
  private:
   KeyTuple key_tuple_;
   Iterators& iterator_data_;
+  MainType* main_;
 };
 
 template <typename U, U DEFAULT_, int MAX_>

@@ -6,6 +6,7 @@
 #define OTUS_CPP_HELPERS_H
 
 #include <tuple>
+#include <iostream>
 
 #ifdef DEBUG_LOG
 template <typename Arg, typename... Args>

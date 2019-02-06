@@ -35,27 +35,8 @@ int main () {
     int x, y;
     int v = c.second->data_value_;
     std::tie(x, y) = c.first;
-    std::cout << "x[" << x << "] y[" << y << "] v=" << v << std::endl;
+    std::cout << "x[" << x << "] y[" << y << "] v=" << v ;
   }
-
-  /*matrix[2][2] = 0;
-  matrix[2][7] = 0;
-
-  std::cout << "\n" << matrix.size() << std::endl;
-
-  matrix[2][7] = 1;
-
-  for(auto c: matrix) {
-    std::cout << std::endl;
-    int x;
-    int y;
-    int v = c.second->data_value_;
-    std::tie(x, y) = c.first;
-    std::cout << "x[" << x << "] y[" << y << "] v=" << v << std::endl;
-  }
-
-  std::cout << "\n" <<matrix[2111][7111] << std::endl;
-  std::cout << "\n" <<matrix[12][12] << std::endl;*/
 
   return 0;
 }
