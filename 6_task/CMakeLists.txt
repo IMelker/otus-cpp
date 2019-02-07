@@ -1,7 +1,7 @@
 project(bulk VERSION 0.0.$ENV{TRAVIS_BUILD_NUMBER})
 
 add_executable(bulk main.cpp bulk_composer.cpp executor.cpp)
-install(TARGETS matrix RUNTIME DESTINATION bin)
+install(TARGETS bulk RUNTIME DESTINATION bin)
 
 set(CPACK_GENERATOR DEB)
 set(CPACK_PACKAGE_VERSION_MAJOR "${PROJECT_VERSION_MAJOR}")
