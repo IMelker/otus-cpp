@@ -21,7 +21,7 @@ int main(int argc, char *argv[]) {
   std::string line;
   while (std::getline(std::cin, line)) {
     tree[line.c_str()] = line;
-    tree.insert(std::pair<line.c_str(), line>);
+    tree.insert(std::make_pair(line.c_str(), line));
     tree.emplace(line.c_str(), line);
   }
 
@@ -30,7 +30,7 @@ int main(int argc, char *argv[]) {
 
   std::cout << "Print RadixTree data with path" << std::endl;
   for (auto& pair: tree) {
-    ctd::cout << pair.second << " " << tree.get_prefix(pair.first) << std::endl;
+    std::cout << pair.second << " " << tree.get_prefix(pair.first) << std::endl;
   }
   std::cout << std::endl;
 
