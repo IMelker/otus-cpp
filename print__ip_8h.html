@@ -69,7 +69,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Поиск');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>Указатель</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Классы</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Файлы</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Функции</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Группы</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>Указатель</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Классы</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Файлы</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Функции</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Переменные</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Группы</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -86,7 +86,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Поиск');
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Классы</a> &#124;
-<a href="#func-members">Функции</a>  </div>
+<a href="#func-members">Функции</a> &#124;
+<a href="#var-members">Переменные</a>  </div>
   <div class="headertitle">
 <div class="title">Файл print_ip.h</div>  </div>
 </div><!--header-->
@@ -131,118 +132,52 @@ var searchBox = new SearchBox("searchBox", "search",false,'Поиск');
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Функции</h2></td></tr>
-<tr class="memitem:a6de720d0fa9a998c974858377cc7e3dc"><td class="memTemplParams" colspan="2">template&lt;typename... Types&gt; </td></tr>
-<tr class="memitem:a6de720d0fa9a998c974858377cc7e3dc"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="print__ip_8h.html#a6de720d0fa9a998c974858377cc7e3dc">PrintIp</a> (const std::tuple&lt; Types...&gt; &amp;tuple)</td></tr>
-<tr class="memdesc:a6de720d0fa9a998c974858377cc7e3dc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prints ip address stored as a tuple.  <a href="#a6de720d0fa9a998c974858377cc7e3dc">Подробнее...</a><br/></td></tr>
-<tr class="separator:a6de720d0fa9a998c974858377cc7e3dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae022f56ca0c4e9e6b0864f21a65cf6ae"><td class="memTemplParams" colspan="2">template&lt;template&lt; typename, typename &gt; class ContainerT, typename ValueT &gt; </td></tr>
-<tr class="memitem:ae022f56ca0c4e9e6b0864f21a65cf6ae"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="print__ip_8h.html#ae022f56ca0c4e9e6b0864f21a65cf6ae">PrintIp</a> (const ContainerT&lt; ValueT, std::allocator&lt; ValueT &gt;&gt; &amp;container)</td></tr>
-<tr class="memdesc:ae022f56ca0c4e9e6b0864f21a65cf6ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prints ip address stored as std container like list or vector.  <a href="#ae022f56ca0c4e9e6b0864f21a65cf6ae">Подробнее...</a><br/></td></tr>
-<tr class="separator:ae022f56ca0c4e9e6b0864f21a65cf6ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab80e24b7f9d411df11c6e71af3333ec5"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:ab80e24b7f9d411df11c6e71af3333ec5"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t<br class="typebreak"/>
-&lt; std::is_integral&lt; T &gt;::value, <br class="typebreak"/>
-void &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="print__ip_8h.html#ab80e24b7f9d411df11c6e71af3333ec5">PrintIp</a> (const T &amp;ip)</td></tr>
-<tr class="memdesc:ab80e24b7f9d411df11c6e71af3333ec5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prints ip address stored as integral type.  <a href="#ab80e24b7f9d411df11c6e71af3333ec5">Подробнее...</a><br/></td></tr>
-<tr class="separator:ab80e24b7f9d411df11c6e71af3333ec5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa2e0da8e8e21f0e503f0c7c8396ec003"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:aa2e0da8e8e21f0e503f0c7c8396ec003"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; std::is_same<br class="typebreak"/>
-&lt; T, std::string &gt;::value, <br class="typebreak"/>
-void &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="print__ip_8h.html#aa2e0da8e8e21f0e503f0c7c8396ec003">PrintIp</a> (const T &amp;ip)</td></tr>
-<tr class="memdesc:aa2e0da8e8e21f0e503f0c7c8396ec003"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prints ip address stored as std::string.  <a href="#aa2e0da8e8e21f0e503f0c7c8396ec003">Подробнее...</a><br/></td></tr>
-<tr class="separator:aa2e0da8e8e21f0e503f0c7c8396ec003"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga05c15e1b3ba99ceb21bf972e6647dc64"><td class="memTemplParams" colspan="2">template&lt;typename... Types&gt; </td></tr>
+<tr class="memitem:ga05c15e1b3ba99ceb21bf972e6647dc64"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t<br class="typebreak"/>
+&lt; <a class="el" href="group__helpers.html#ga53f99a0ff91acf8f8ad64930069f4223">has_same_types_v</a>&lt; Types...&gt;<br class="typebreak"/>
+, void &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__helpers.html#ga05c15e1b3ba99ceb21bf972e6647dc64">PrintIp</a> (const std::tuple&lt; Types...&gt; &amp;tuple)</td></tr>
+<tr class="memdesc:ga05c15e1b3ba99ceb21bf972e6647dc64"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prints ip address stored as a tuple.  <a href="group__helpers.html#ga05c15e1b3ba99ceb21bf972e6647dc64">Подробнее...</a><br/></td></tr>
+<tr class="separator:ga05c15e1b3ba99ceb21bf972e6647dc64"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gae022f56ca0c4e9e6b0864f21a65cf6ae"><td class="memTemplParams" colspan="2">template&lt;template&lt; typename, typename &gt; class ContainerT, typename ValueT &gt; </td></tr>
+<tr class="memitem:gae022f56ca0c4e9e6b0864f21a65cf6ae"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__helpers.html#gae022f56ca0c4e9e6b0864f21a65cf6ae">PrintIp</a> (const ContainerT&lt; ValueT, std::allocator&lt; ValueT &gt;&gt; &amp;container)</td></tr>
+<tr class="memdesc:gae022f56ca0c4e9e6b0864f21a65cf6ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prints ip address stored as std container like list or vector.  <a href="group__helpers.html#gae022f56ca0c4e9e6b0864f21a65cf6ae">Подробнее...</a><br/></td></tr>
+<tr class="separator:gae022f56ca0c4e9e6b0864f21a65cf6ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gad711638b278d8774ed453bc4055ecb74"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:gad711638b278d8774ed453bc4055ecb74"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t<br class="typebreak"/>
+&lt; <a class="el" href="print__ip_8h.html#a396e4b8c756441b942c1619de108e56a">is_integral_v</a>&lt; T &gt;, void &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__helpers.html#gad711638b278d8774ed453bc4055ecb74">PrintIp</a> (const T &amp;ip)</td></tr>
+<tr class="memdesc:gad711638b278d8774ed453bc4055ecb74"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prints ip address stored as integral type.  <a href="group__helpers.html#gad711638b278d8774ed453bc4055ecb74">Подробнее...</a><br/></td></tr>
+<tr class="separator:gad711638b278d8774ed453bc4055ecb74"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gad711638b278d8774ed453bc4055ecb74"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:gad711638b278d8774ed453bc4055ecb74"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; <a class="el" href="print__ip_8h.html#aa6c6bde5fd020a928e6d7b5fe8db7bb0">is_same_v</a>&lt; T, <br class="typebreak"/>
+std::string &gt;, void &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="print__ip_8h.html#gad711638b278d8774ed453bc4055ecb74">PrintIp</a> (const T &amp;ip)</td></tr>
+<tr class="memdesc:gad711638b278d8774ed453bc4055ecb74"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prints ip address stored as std::string.  <a href="#gad711638b278d8774ed453bc4055ecb74">Подробнее...</a><br/></td></tr>
+<tr class="separator:gad711638b278d8774ed453bc4055ecb74"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
+Переменные</h2></td></tr>
+<tr class="memitem:a396e4b8c756441b942c1619de108e56a"><td class="memTemplParams" colspan="2">template&lt;class T &gt; </td></tr>
+<tr class="memitem:a396e4b8c756441b942c1619de108e56a"><td class="memTemplItemLeft" align="right" valign="top">constexpr bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="print__ip_8h.html#a396e4b8c756441b942c1619de108e56a">is_integral_v</a> = std::is_integral&lt;T&gt;::value</td></tr>
+<tr class="separator:a396e4b8c756441b942c1619de108e56a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa6c6bde5fd020a928e6d7b5fe8db7bb0"><td class="memTemplParams" colspan="2">template&lt;class T , class U &gt; </td></tr>
+<tr class="memitem:aa6c6bde5fd020a928e6d7b5fe8db7bb0"><td class="memTemplItemLeft" align="right" valign="top">constexpr bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="print__ip_8h.html#aa6c6bde5fd020a928e6d7b5fe8db7bb0">is_same_v</a> = std::is_same&lt;T, U&gt;::value</td></tr>
+<tr class="separator:aa6c6bde5fd020a928e6d7b5fe8db7bb0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga53f99a0ff91acf8f8ad64930069f4223"><td class="memTemplParams" colspan="2">template&lt;class T , class... Types&gt; </td></tr>
+<tr class="memitem:ga53f99a0ff91acf8f8ad64930069f4223"><td class="memTemplItemLeft" align="right" valign="top">constexpr bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__helpers.html#ga53f99a0ff91acf8f8ad64930069f4223">has_same_types_v</a> = <a class="el" href="structhas__same__types.html">has_same_types</a>&lt;T, Types...&gt;::value</td></tr>
+<tr class="separator:ga53f99a0ff91acf8f8ad64930069f4223"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Подробное описание</h2>
 <div class="textblock"><p>Methods for printing ip. </p>
 <dl class="section author"><dt>Автор</dt><dd>Igor Melker </dd></dl>
 <dl class="section date"><dt>Дата</dt><dd>14 Jan 2019 Methods for printing ip addresses stored in different ways. </dd></dl>
 </div><h2 class="groupheader">Функции</h2>
-<a class="anchor" id="a6de720d0fa9a998c974858377cc7e3dc"></a>
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename... Types&gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">void PrintIp </td>
-          <td>(</td>
-          <td class="paramtype">const std::tuple&lt; Types...&gt; &amp;&#160;</td>
-          <td class="paramname"><em>tuple</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Prints ip address stored as a tuple. </p>
-<dl class="params"><dt>Аргументы</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">tuple</td><td>Ip address represented as tuple </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a class="anchor" id="ae022f56ca0c4e9e6b0864f21a65cf6ae"></a>
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;template&lt; typename, typename &gt; class ContainerT, typename ValueT &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">void PrintIp </td>
-          <td>(</td>
-          <td class="paramtype">const ContainerT&lt; ValueT, std::allocator&lt; ValueT &gt;&gt; &amp;&#160;</td>
-          <td class="paramname"><em>container</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Prints ip address stored as std container like list or vector. </p>
-<dl class="params"><dt>Аргументы</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">container</td><td>Ip address represented as stl container </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a class="anchor" id="ab80e24b7f9d411df11c6e71af3333ec5"></a>
+<a class="anchor" id="gad711638b278d8774ed453bc4055ecb74"></a>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
 template&lt;typename T &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">std::enable_if_t&lt;std::is_integral&lt;T&gt;::value, void&gt; PrintIp </td>
-          <td>(</td>
-          <td class="paramtype">const T &amp;&#160;</td>
-          <td class="paramname"><em>ip</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Prints ip address stored as integral type. </p>
-<dl class="params"><dt>Аргументы</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">ip</td><td>Ip address represented as integral type </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a class="anchor" id="aa2e0da8e8e21f0e503f0c7c8396ec003"></a>
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">std::enable_if_t&lt;std::is_same&lt;T, std::string&gt;::value, void&gt; PrintIp </td>
+          <td class="memname">std::enable_if_t&lt;<a class="el" href="print__ip_8h.html#aa6c6bde5fd020a928e6d7b5fe8db7bb0">is_same_v</a>&lt;T, std::string&gt;, void&gt; PrintIp </td>
           <td>(</td>
           <td class="paramtype">const T &amp;&#160;</td>
           <td class="paramname"><em>ip</em></td><td>)</td>
@@ -261,10 +196,39 @@ template&lt;typename T &gt; </div>
 
 </div>
 </div>
+<h2 class="groupheader">Переменные</h2>
+<a class="anchor" id="a396e4b8c756441b942c1619de108e56a"></a>
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr bool is_integral_v = std::is_integral&lt;T&gt;::value</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="aa6c6bde5fd020a928e6d7b5fe8db7bb0"></a>
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class T , class U &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr bool is_same_v = std::is_same&lt;T, U&gt;::value</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Документация по PrintIp. Последние изменения: Чт 7 Фев 2019 14:52:08. Создано системой &#160;<a href="http://www.doxygen.org/index.html">
+Документация по PrintIp. Последние изменения: Пн 11 Фев 2019 12:20:46. Создано системой &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

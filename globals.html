@@ -68,6 +68,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Поиск');
     <ul class="tablist">
       <li class="current"><a href="globals.html"><span>Указатель</span></a></li>
       <li><a href="globals_func.html"><span>Функции</span></a></li>
+      <li><a href="globals_vars.html"><span>Переменные</span></a></li>
     </ul>
   </div>
 </div><!-- top -->
@@ -76,7 +77,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Поиск');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>Указатель</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Классы</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Файлы</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Функции</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Группы</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>Указатель</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Классы</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Файлы</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Функции</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Переменные</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Группы</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -87,17 +88,26 @@ var searchBox = new SearchBox("searchBox", "search",false,'Поиск');
 
 <div class="contents">
 <div class="textblock">Список всех членов файлов со ссылками на файлы, к которым они принадлежат.</div><ul>
+<li>has_same_types_v
+: <a class="el" href="group__helpers.html#ga53f99a0ff91acf8f8ad64930069f4223">print_ip.h</a>
+</li>
+<li>is_integral_v
+: <a class="el" href="print__ip_8h.html#a396e4b8c756441b942c1619de108e56a">print_ip.h</a>
+</li>
+<li>is_same_v
+: <a class="el" href="print__ip_8h.html#aa6c6bde5fd020a928e6d7b5fe8db7bb0">print_ip.h</a>
+</li>
 <li>main()
 : <a class="el" href="main_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4">main.cpp</a>
 </li>
 <li>PrintIp()
-: <a class="el" href="print__ip_8h.html#a6de720d0fa9a998c974858377cc7e3dc">print_ip.h</a>
+: <a class="el" href="group__helpers.html#ga05c15e1b3ba99ceb21bf972e6647dc64">print_ip.h</a>
 </li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Документация по PrintIp. Последние изменения: Чт 7 Фев 2019 14:52:08. Создано системой &#160;<a href="http://www.doxygen.org/index.html">
+Документация по PrintIp. Последние изменения: Пн 11 Фев 2019 12:20:46. Создано системой &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>
