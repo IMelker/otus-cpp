@@ -18,6 +18,7 @@ int main () {
     matrix[i][9-i] = i;
   }
 
+  LOG("Matrix size at check point: ", matrix.size());
   assert(matrix.size() == 18);
 
   //print matrix
@@ -33,7 +34,7 @@ int main () {
   for(auto c: matrix) {
     std::cout << std::endl;
     int x, y;
-    int v = c.second->data_value_;
+    int v = c.second;
     std::tie(x, y) = c.first;
     std::cout << "x[" << x << "] y[" << y << "] v=" << v ;
   }

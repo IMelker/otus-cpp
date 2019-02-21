@@ -32,8 +32,8 @@ BOOST_AUTO_TEST_CASE(matrix_minimum_required) {
 
   BOOST_CHECK(matrix[200][200] == 0);
 
-  matrix[100][100] = 314;
-  BOOST_CHECK(matrix[100][100] == 314);
+  ((matrix[100][100] = 314) = 0) = 215;
+  BOOST_CHECK(matrix[100][100] == 215);
 
   count = 0;
   for(auto it = matrix.begin(); it != matrix.end(); ++it) { ++count; }

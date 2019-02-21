@@ -1,6 +1,6 @@
 project(matrix VERSION 0.0.$ENV{TRAVIS_BUILD_NUMBER})
 
-add_executable(matrix main.cpp)
+add_executable(matrix main.cpp matrix.h)
 install(TARGETS matrix RUNTIME DESTINATION bin)
 
 set(CPACK_GENERATOR DEB)
