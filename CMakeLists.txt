@@ -27,7 +27,7 @@ add_subdirectory(3_task)
 add_subdirectory(4_task)
 add_subdirectory(5_task)
 add_subdirectory(6_task)
-#add_subdirectory(7_task)
+add_subdirectory(7_task)
 
 enable_testing()
 add_subdirectory(test)

@@ -8,28 +8,45 @@
 #include <memory>
 #include <map>
 
-template <typename K, typename T, typename Compare>
+template <typename K, typename T>
 class RadixTreeNode {
- public:
-  RadixTreeNode();
-  ~RadixTreeNode() = default;
+  friend class RadixTree<K, T>;
+  friend class RadixTreeIterator<K, T>;
 
+  using ValueType = std::pair<const K, T>;
+ public:
+  ~RadixTreeNode() = default;
   RadixTreeNode(const RadixTreeNode&) = delete;
   RadixTreeNode& operator=(const RadixTreeNode&) = delete;
 
  private:
-  std::unique_ptr<T> data_;
+  RadixTreeNode();
+  RadixTreeNode(ValueType value);
+
+  std::map<K, std::unique_ptr<RadixTreeNode<K,T>>, std::less<K>> childs_;
+  RadixTreeNode* parent_;
+  std::unique_ptr<ValueType> value_;
+  K key_;
   int depth_;
   bool is_leaf_;
-  std::map<K, std::unique_ptr<RadixTreeNode<K,T,Compare>>, Compare> childs_;
 };
 
-template <typename K, typename T, typename Compare>
-RadixTreeNode<K,T,Compare>::RadixTreeNode()
-    : data_(std::make_unique<T>(nullptr))
+template <typename K, typename T>
+RadixTreeNode<K,T>::RadixTreeNode()
+    : parent_(nullptr)
+    , value_(nullptr)
     , depth_(0)
     , is_leaf_(false) {
+}
 
+template<typename K, typename T>
+RadixTreeNode<K, T>::RadixTreeNode(ValueType value)
+    : childs_(std::map<K, std::unique_ptr<RadixTreeNode<K,T>>, std::less<K>>(std::less<K>()))
+    , parent_(nullptr)
+    , value_(std::unique_ptr<ValueType>(nullptr))
+    , depth_(0)
+    , is_leaf_(false) {
+  value_ = std::make_unique<ValueType>(std::forward<ValueType>(value));
 }
 
 #endif //OTUS_CPP_RADIX_TREE_NODE_H

@@ -1,6 +1,6 @@
 project(nickname VERSION 0.0.$ENV{TRAVIS_BUILD_NUMBER})
 
-add_executable(nickname main.cpp)
+add_executable(nickname main.cpp radix_tree_specifiers.h)
 install(TARGETS nickname RUNTIME DESTINATION bin)
 
 set(CPACK_GENERATOR DEB)
