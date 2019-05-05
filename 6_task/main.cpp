@@ -14,7 +14,7 @@
 
 int main(int argc, char *argv[]) {
   if (argc != 2) {
-    std::cout << "Failed: Wrong number of arguments" << std::endl;
+    std::cout << "Failed: Wrong number of arg_parser" << std::endl;
     exit(1);
   }
 

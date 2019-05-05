@@ -3,10 +3,11 @@
 //
 
 #include <boost/program_options.hpp>
+#include <logger/logger.h>
+#include <arg_parser/arg_parser.h>
 #include <vector>
 #include <string>
 #include <iostream>
-
 #include "scanner.h"
 
 /*Утилита должна иметь возможность через параметры командной строки
@@ -27,45 +28,55 @@
 конкретные варианты определить самостоятельно), в задании
 эта функция упоминается как H*/
 
-
 namespace po = boost::program_options;
 
-void loadOptions(int argc, char **argv, Scanner &scanner) {
-    po::options_description desc{"Options"};
-    desc.add_options()
-        ("help,h", "Help screen")
-        ("include,i", po::value<std::vector<std::string>>(&scanner.included_paths_), "Include directories for scaning")
-        ("exclude,e", po::value<std::vector<std::string>>(&scanner.excluded_paths), "Exclude directories from scaning")
-        ("level,l", po::value<int>(&scanner.scan_level_)->default_value(0), "Directory scan level(depth)")
-        ("min_file_size", po::value<std::size_t>(&scanner.min_file_size_)->default_value(1), "Minimal file size for scaning")
-        ("file_mask,m", po::value<std::string>()->default_value("")->notifier(
-            std::bind(&Scanner::setFileMask, &scanner, std::placeholders::_1)), "File mask(regexp) for scaning")
-        ("read_block_size,n", po::value<int>(&scanner.block_size_)->default_value(0), "Size of read file binary block. If `0` file will be full loaded")
-        ("hash", po::value<std::string>()->default_value("")->notifier(
-            std::bind(&Scanner::setChecksumHash, &scanner, std::placeholders::_1)), "Algorithm for hashing block");
-    po::variables_map vm;
-    store(po::parse_command_line(argc, argv, desc), vm);
-    po::notify(vm);
+template <typename T>
+std::ostream& operator <<(std::ostream &os, const std::vector<T>& v) {
+  std::copy(v.cbegin(), v.cend(), std::ostream_iterator<T>(os, ";"));
+  return os;
+}
+
+namespace std {
+  // for educational purposes
+  template <typename T>
+  string to_string(const vector<T>& v) {
+    stringstream stream;
+    std::copy(v.cbegin(), v.cend(), std::ostream_iterator<T>(stream, ";"));
+    return stream.str();
+  }
 }
 
 int main (int argc, char *argv[]) {
+  auto logger = GlobalLogger{};
 
-  // load options
-  // check if all is right
-  // create scanner
-  // setOptions for it
-  // start scaning
-  Scanner duplicate_scanner();
+  auto args = ArgParser{
+      Header("Generic"),
+      Option("help,h", "Help screen"),
+      Header("File scanner"),
+      Option("include,i", "Include directories for scaning", std::vector<std::string>()),
+      Option("exclude,e", "Exclude directories from scaning", std::vector<std::string>()),
+      Option("level,l", "Directory scan level(depth)", int()),
+      Option("min_file_size,s", "Minimal file size for scaning", uintmax_t()),
+      Header("Duplicate scanner"),
+      Option("read_block_size,n", "Size of read file binary block. If `0` file will be full loaded", int())
+  };
+  args.parse(argc, argv);
 
-  ScannerOptions options;
-  try {
-    loadOptions(argc, argv, options);
-  } catch (const po::error &ex) {
-    std::cout << "Wrong options: " << ex.what() << '\n';
-    exit(1);
-  }
+  auto included_paths = args.get<std::vector<std::string>>("include");
+  auto excluded_paths = args.get<std::vector<std::string>>("exclude");
+  auto scan_level = args.get<int>("level");
+  auto min_file_size = args.get<uintmax_t>("min_file_size");
+  auto block_size = args.get<int>("read_block_size");
 
-  Scanner duplicate_scanner(options);
-  duplicate_scanner.startScan();
-  duplicate_scanner.printDuplicates();
+  logger.logInfo("included_paths(" + std::to_string(included_paths.size()) + ") = " + std::to_string(included_paths));
+  logger.logInfo("excluded_paths(" + std::to_string(excluded_paths.size()) + ") = " + std::to_string(excluded_paths));
+  logger.logInfo("scan_level = " + std::to_string(scan_level));
+  logger.logInfo("min_file_size = " + std::to_string(min_file_size));
+  logger.logInfo("block_size = " + std::to_string(block_size));
+
+  //auto file_scanner = FileScanner(opt);
+  //auto filelist = file_scanner.startScan();
+  //auto duplicate_scanner = DuplicateScanner();
+  //auto duplicates_list = duplicate_scanner.findDuplicates(filelist);
+  //logger.logInfo(std::to_string(duplicates_list));
 }

@@ -1,6 +1,6 @@
 project(allocator VERSION 0.0.$ENV{TRAVIS_BUILD_NUMBER})
 
-add_executable(allocator main.cpp ../8_task/main.cpp)
+add_executable(allocator main.cpp ../common/logger/logger.cpp ../common/logger/logger.h)
 install(TARGETS allocator RUNTIME DESTINATION bin)
 
 set(CPACK_GENERATOR DEB)
