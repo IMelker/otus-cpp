@@ -9,6 +9,7 @@
 #include <string>
 #include <iostream>
 #include <boost/program_options.hpp>
+#include <boost/regex.hpp>
 
 /*
  * helpers
@@ -22,6 +23,23 @@ template <typename T, typename Alloc>
 struct is_multitoken<std::vector<T,Alloc>> {
   static const bool value = true;
 };
+
+namespace std {
+  template<typename T>
+  std::ostream &operator<<(std::ostream &os, const std::vector<T> &v) {
+    std::copy(v.cbegin(), v.cend(), std::ostream_iterator<T>(os, ";"));
+    return os;
+  }
+
+  std::istream& operator>>(std::istream& in, boost::regex& unit) {
+    std::string token;
+    in >> token;
+    unit.set_expression(token);
+    return in;
+  }
+}
+
+
 
 /*
  * options
@@ -80,7 +98,15 @@ class ArgParser {
   void parse(int argc, char *argv[]) {
     store(po::parse_command_line(argc, argv, cmdline_options_), vm_);
     if (exit_on_help && vm_.count("help")) {
-      std::cout << cmdline_options_ << "\n";
+      std::cout << cmdline_options_ << std::endl;
+      std::exit(0);
+    }
+    if (vm_.count("version")) {
+#ifdef VERSION
+      std::cout << VERSION << std::endl;
+#else
+      std::cout << "0.0.0" << std::endl;
+#endif
       std::exit(0);
     }
     po::notify(vm_);
@@ -88,6 +114,7 @@ class ArgParser {
 
   template <typename T>
   T get(const std::string& key) const {
+    assert(vm_.count(key) != 0 && "Failed to find such name in parsed options");
     return vm_.at(key).as<T>();
   }
 
@@ -114,7 +141,7 @@ void ArgParser::staticDescFill(po::options_description& desc, Arg option, Args..
     auto name = option.getName();
     auto description = option.getDescription();
     if constexpr (is_multitoken<v_type>::value) {
-      desc.add_options()(name, po::value<v_type>()->multitoken(), description);
+      desc.add_options()(name, po::value<v_type>()->default_value(option.getDefault())->multitoken(), description);
     } else if constexpr (std::is_same_v<std::nullptr_t, v_type>/*empty v*/) {
       desc.add_options()(name, description);
     } else {

@@ -2,6 +2,7 @@ project(bayan VERSION 0.0.$ENV{TRAVIS_BUILD_NUMBER})
 
 find_package(Boost COMPONENTS thread log program_options REQUIRED)
 add_definitions(-DBOOST_LOG_DYN_LINK)
+add_definitions(-DVERSION=\"${PROJECT_VERSION}\")
 
 include_directories("${CMAKE_SOURCE_DIR}/common")
 link_directories("${CMAKE_BINARY_DIR}/lib")

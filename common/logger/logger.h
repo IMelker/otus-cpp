@@ -24,17 +24,11 @@ enum class LogLevel : std::underlying_type<logging::trivial::severity_level>::ty
   Fatal = logging::trivial::severity_level::fatal
 };
 
-class GlobalLogger {
+class TrivialLogger {
  public:
-  GlobalLogger(std::ostream& stream = std::clog) : core_(logging::core::get()) {
-    logging::add_console_log(stream);
-  }
-
-  GlobalLogger(const std::string& log_filepath) : core_(logging::core::get()) {
-    logging::add_file_log(log_filepath);
-  }
-
-  ~GlobalLogger() = default;
+  TrivialLogger(std::ostream& stream = std::clog);
+  TrivialLogger(const std::string& log_filepath);
+  ~TrivialLogger() = default;
 
   void setMinLogLevel(LogLevel lvl);
 
@@ -70,12 +64,8 @@ class GlobalLogger {
   logging::core_ptr core_;
 };
 
-void GlobalLogger::setMinLogLevel(LogLevel lvl) {
-  core_->set_filter(logging::trivial::severity >= static_cast<logging::trivial::severity_level>(lvl));
-}
-
 template <typename T>
-void GlobalLogger::log(LogLevel lvl, T&& value) {
+void TrivialLogger::log(LogLevel lvl, T&& value) {
   switch (lvl) {
     case LogLevel::Trace:
       BOOST_LOG_TRIVIAL(trace) << "[Trace] " << value;
@@ -98,9 +88,4 @@ void GlobalLogger::log(LogLevel lvl, T&& value) {
   }
 }
 
-/*class LoggerBase;
-class LocalThereadLogger;
-class LocalLogger;
-class GlobalLogger;
-*/
 #endif //OTUS_CPP_COMMON_LOGGER_LOGGER_H_
